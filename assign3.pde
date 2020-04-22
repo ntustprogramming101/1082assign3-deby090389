@@ -6,9 +6,15 @@ final int START_BUTTON_W = 144;
 final int START_BUTTON_H = 60;
 final int START_BUTTON_X = 248;
 final int START_BUTTON_Y = 360;
+final int SOIL = 80; // height and width
+
 
 PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
 PImage bg, soil8x24;
+PImage lifeImg;
+PImage soil0,soil1,soil2,soil3,soil4,soil5;
+PImage stone1,stone2;
+
 
 // For debug function; DO NOT edit or remove this!
 int playerHealth = 0;
@@ -25,7 +31,22 @@ void setup() {
 	startHovered = loadImage("img/startHovered.png");
 	restartNormal = loadImage("img/restartNormal.png");
 	restartHovered = loadImage("img/restartHovered.png");
-	soil8x24 = loadImage("img/soil8x24.png");
+	//soil8x24 = loadImage("img/soil8x24.png");
+  lifeImg = loadImage("img/life.png");
+  
+  //stone 
+  stone1 = loadImage("img/stone1.png");
+  stone2 = loadImage("img/stone2.png");
+  
+  //soil
+  soil0 = loadImage("img/soil0.png");
+  soil1 = loadImage("img/soil1.png");
+  soil2 = loadImage("img/soil2.png");
+  soil3 = loadImage("img/soil3.png");
+  soil4 = loadImage("img/soil4.png");
+  soil5 = loadImage("img/soil5.png");
+   
+
 }
 
 void draw() {
@@ -82,12 +103,136 @@ void draw() {
 		rect(0, 160 - GRASS_HEIGHT, width, GRASS_HEIGHT);
 
 		// Soil - REPLACE THIS PART WITH YOUR LOOP CODE!
-		image(soil8x24, 0, 160);
+    for(int h=SOIL*2 ; h<SOIL*6 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil0,w,h);
+      }
+    }
+     for(int h=SOIL*6 ; h<SOIL*10 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil1,w,h);
+      }
+    }
+     for(int h=SOIL*10 ; h<SOIL*14 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil2,w,h);
+      }
+    }
+     for(int h=SOIL*14 ; h<SOIL*18 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil3,w,h);
+      }
+    }
+     for(int h=SOIL*18 ; h<SOIL*22 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil4,w,h);
+      }
+    }
+     for(int h=SOIL*22 ; h<SOIL*26 ; h+=SOIL){
+      for(int w=0 ; w<width ; w+=SOIL){
+        image(soil5,w,h);
+      }
+    }
+    
+		//stone1
+    float x1 = 0;
+    float y1 = SOIL*2;
+    for(int i=0 ; i<8 ; i++){
+        x1=SOIL*i;
+        image(stone1,x1,y1);
+        y1+=SOIL;
+    }
+    //stone1(2)
+    for(int x2=0 ; x2<width ; x2+=SOIL){
+      for(int y2=SOIL*10 ; y2<SOIL*18 ; y2+=SOIL){
+        image(stone1,x2,y2);
+      }
+    }
+    //stone1(2)
+    //cover image soil2//3 floor left
+    float s1 = 0;
+    float z1 = SOIL*10;
+    for(int i=0 ; i<4 ; i++){
+        s1=SOIL*i;
+        image(soil2,s1,z1);
+        z1+=SOIL;
+    }
+    float s2 = 0;
+    float z2 = SOIL*13;
+    for(int i=0 ; i<4 ; i++){
+        s2=SOIL*i;
+        image(soil2,s2,z2);
+        z2-=SOIL;
+    }
+    //cover image soil2//4 floor left
+    float s3 = 0;
+    float z3 = SOIL*14;
+    for(int i=0 ; i<4 ; i++){
+        s3=SOIL*i;
+        image(soil3,s3,z3);
+        z3+=SOIL;
+    }
+    float s4 = 0;
+    float z4 = SOIL*17;
+    for(int i=0 ; i<4 ; i++){
+        s4=SOIL*i;
+        image(soil3,s4,z4);
+        z4-=SOIL;
+    }
+    //cover image soil2//4 floor right
+    float s5 = SOIL*4;
+    float z5 = SOIL*14;
+    for(int i=0 ; i<4 ; i++){
+        s5=SOIL*i;
+        image(soil3,s5,z5);
+        z5+=SOIL;
+    }
+    float s6 = SOIL*4;
+    float z6 = SOIL*17;
+    for(int i=0 ; i<4 ; i++){
+        s6=SOIL*i;
+        image(soil3,s6,z6);
+        z6-=SOIL;
+    }
+    /*float x2 = 0;
+    float y2 = SOIL*10;
+    for(int i=0 ; i<8 ; i++){
+        x2=SOIL*i;
+        image(soil3,x2,y2);
+        y2+=SOIL;
+    }*/
+        
 
 		// Player
 
 		// Health UI
-
+    if(playerHealth==5){
+       image(lifeImg,10,10); //1heart
+       image(lifeImg,80,10); //2heart
+       image(lifeImg,150,10); //3heart
+       image(lifeImg,220,10); //4heart
+       image(lifeImg,290,10); //5heart
+    }   
+    if(playerHealth==4){
+       image(lifeImg,10,10); //1heart
+       image(lifeImg,80,10); //2heart
+       image(lifeImg,150,10); //3heart
+       image(lifeImg,220,10); //4heart
+    }        
+    if(playerHealth==3){
+       image(lifeImg,10,10); //1heart
+       image(lifeImg,80,10); //2heart
+       image(lifeImg,150,10); //3heart
+     }
+     if(playerHealth==2){
+       image(lifeImg,10,10); //1heart
+       image(lifeImg,80,10); //2heart
+     }
+     if(playerHealth==1){
+       image(lifeImg,10,10); //1heart
+     }
+    
+    
 		break;
 
 		case GAME_OVER: // Gameover Screen
@@ -107,7 +252,7 @@ void draw() {
 		}else{
 
 			image(restartNormal, START_BUTTON_X, START_BUTTON_Y);
-
+     
 		}
 		break;
 		
