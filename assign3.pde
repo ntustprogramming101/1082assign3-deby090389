@@ -134,7 +134,8 @@ void draw() {
       }
     }
     
-		//stone1
+//stone1
+//1-8
     float x1 = 0;
     float y1 = SOIL*2;
     for(int i=0 ; i<8 ; i++){
@@ -142,14 +143,13 @@ void draw() {
         image(stone1,x1,y1);
         y1+=SOIL;
     }
-    //stone1(2)
+//9-16    
     for(int x2=0 ; x2<width ; x2+=SOIL){
       for(int y2=SOIL*10 ; y2<SOIL*18 ; y2+=SOIL){
         image(stone1,x2,y2);
       }
     }
-    //stone1(2)
-    //cover image soil2//3 floor left
+    //cover image(soil2)//3 floor left
     float s1 = 0;
     float z1 = SOIL*10;
     for(int i=0 ; i<4 ; i++){
@@ -164,44 +164,52 @@ void draw() {
         image(soil2,s2,z2);
         z2-=SOIL;
     }
-    //cover image soil2//4 floor left
-    float s3 = 0;
-    float z3 = SOIL*14;
+    //cover image(soil2)//3 floor right
+    float s3 = SOIL*4;
+    float z3 = SOIL*10;
     for(int i=0 ; i<4 ; i++){
-        s3=SOIL*i;
-        image(soil3,s3,z3);
-        z3+=SOIL;
+        s3 = SOIL*4+SOIL*i;
+        image(soil2,s3,z3);
+        z3 += SOIL;
     }
     float s4 = 0;
-    float z4 = SOIL*17;
+    float z4 = SOIL*13;
     for(int i=0 ; i<4 ; i++){
-        s4=SOIL*i;
-        image(soil3,s4,z4);
-        z4-=SOIL;
+        s4 = SOIL*4 + SOIL*i;
+        image(soil2,s4,z4);
+        z4 -= SOIL;
     }
-    //cover image soil2//4 floor right
-    float s5 = SOIL*4;
+    //cover image(soil2)//4 floor left
+    float s5 = 0;
     float z5 = SOIL*14;
     for(int i=0 ; i<4 ; i++){
-        s5=SOIL*i;
+        s5 = SOIL*i;
         image(soil3,s5,z5);
-        z5+=SOIL;
+        z5 += SOIL;
     }
-    float s6 = SOIL*4;
+    float s6 = 0;
     float z6 = SOIL*17;
     for(int i=0 ; i<4 ; i++){
-        s6=SOIL*i;
+        s6 = SOIL*i;
         image(soil3,s6,z6);
-        z6-=SOIL;
+        z6 -= SOIL;
     }
-    /*float x2 = 0;
-    float y2 = SOIL*10;
-    for(int i=0 ; i<8 ; i++){
-        x2=SOIL*i;
-        image(soil3,x2,y2);
-        y2+=SOIL;
-    }*/
-        
+    //cover image(soil2)//4 floor right
+    float s7 = SOIL*4;
+    float z7 = SOIL*14;
+    for(int i=0 ; i<4 ; i++){
+        s7 = SOIL*4+SOIL*i;
+        image(soil3,s7,z7);
+        z7 += SOIL;
+    }
+    float s8 = SOIL*4;
+    float z8 = SOIL*17;
+    for(int i=0 ; i<4 ; i++){
+        s8 = SOIL*4 + SOIL*i;
+        image(soil3,s8,z8);
+        z8 -= SOIL;
+    }
+
 
 		// Player
 
