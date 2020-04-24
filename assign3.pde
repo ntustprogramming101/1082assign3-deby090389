@@ -8,9 +8,29 @@ final int START_BUTTON_X = 248;
 final int START_BUTTON_Y = 360;
 final int SOIL = 80; // height and width
 
+//groundhog
+PImage groundhogIdle;
+PImage groundhogDown;
+PImage groundhogLeft;
+PImage groundhogRight;
+int groundhogX = 320;
+int groundhogY = 80;
+int gW=80; //groundhog width
+int gH=80; //groundhog height
+int groundhogMoveY;
+int groundhogMoveX;
+
+//boolean
+boolean downPressed=false;
+boolean leftPressed=false;
+boolean rightPressed=false;
+//time
+float nowTime;
+float lastTime;
+
 
 PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
-PImage bg, soil8x24;
+PImage skyImg, soil8x24;
 PImage lifeImg;
 PImage soil0,soil1,soil2,soil3,soil4,soil5;
 PImage stone1,stone2;
@@ -24,7 +44,7 @@ boolean debugMode = false;
 void setup() {
 	size(640, 480, P2D);
 	// Enter your setup code here (please put loadImage() here or your game will lag like crazy)
-	bg = loadImage("img/bg.jpg");
+	skyImg = loadImage("img/bg.jpg");
 	title = loadImage("img/title.jpg");
 	gameover = loadImage("img/gameover.jpg");
 	startNormal = loadImage("img/startNormal.png");
@@ -45,7 +65,12 @@ void setup() {
   soil3 = loadImage("img/soil3.png");
   soil4 = loadImage("img/soil4.png");
   soil5 = loadImage("img/soil5.png");
-   
+  
+  //groundhog
+  groundhogDown=loadImage("img/groundhogDown.png");
+  groundhogIdle=loadImage("img/groundhogIdle.png");
+  groundhogLeft=loadImage("img/groundhogLeft.png");
+  groundhogRight=loadImage("img/groundhogRight.png");
 
 }
 
@@ -86,10 +111,10 @@ void draw() {
 		}
 		break;
 
-		case GAME_RUN: // In-Game
-
-		// Background
-		image(bg, 0, 0);
+	
+   	case GAME_RUN: // In-Game
+     //sky
+    image(skyImg,0,0); 
 
 		// Sun
 	    stroke(255,255,0);
@@ -209,11 +234,49 @@ void draw() {
         image(soil3,s8,z8);
         z8 -= SOIL;
     }
+//stone1+2
+    
+    /* for(int x=0 ; x<width ; x+=SOIL){
+      for(int y=SOIL*18 ; y<SOIL*26 ; y+=SOIL){
 
+        image(stone1,x,y);
 
-		// Player
+      }
+    }
+    */
 
-		// Health UI
+// Player
+    //groundhog moving
+     if(downPressed){
+       if( groundhogMoveY <= groundhogY ){
+         groundhogMoveY+=80/15.0;
+         image(groundhogDown,groundhogX,groundhogMoveY);
+         nowTime = millis();
+       }else{
+         downPressed = false;
+       }
+     }
+     else if(leftPressed){
+       if( groundhogMoveX>=groundhogX ){
+         groundhogMoveX-=80/15.0;
+         image(groundhogLeft,groundhogMoveX,groundhogY);
+         
+       }else{
+         leftPressed = false;
+       }
+     }
+     else if(rightPressed){
+       if( groundhogMoveX<=groundhogX ){
+         groundhogMoveX+=80/15.0;
+         image(groundhogRight,groundhogMoveX,groundhogY);
+       } else{
+          rightPressed = false;
+       }
+     }
+     else{
+       image(groundhogIdle,groundhogX,groundhogY);
+
+    // Health UI
     if(playerHealth==5){
        image(lifeImg,10,10); //1heart
        image(lifeImg,80,10); //2heart
@@ -240,7 +303,7 @@ void draw() {
        image(lifeImg,10,10); //1heart
      }
     
-    
+ }
 		break;
 
 		case GAME_OVER: // Gameover Screen
@@ -274,7 +337,40 @@ void draw() {
 
 void keyPressed(){
 	// Add your moving input code here
-
+  nowTime = millis(); 
+  if(key==CODED){
+    switch(keyCode){
+      case DOWN:
+      if(nowTime - lastTime > 250){
+         downPressed=true;
+         groundhogMoveY = groundhogY; //start position
+         groundhogY += SOIL;
+         lastTime = millis();
+         
+       }
+      break;
+      
+      case LEFT:
+      if(nowTime - lastTime > 250){
+         groundhogMoveX = groundhogX; 
+         groundhogX -= SOIL;
+         leftPressed=true;
+         lastTime = millis();
+        
+      }
+      break;
+      
+      case RIGHT:
+      if(nowTime - lastTime > 250){
+         groundhogMoveX = groundhogX;
+         rightPressed = true;
+         groundhogX += SOIL;
+         lastTime = millis();
+         
+      }     
+      break;
+    }
+ }
 	// DO NOT REMOVE OR EDIT THE FOLLOWING SWITCH/CASES
     switch(key){
       case 'w':
@@ -298,4 +394,19 @@ void keyPressed(){
 }
 
 void keyReleased(){
+  if(key==CODED){
+    switch(keyCode){
+      case DOWN:
+      downPressed=false;
+      break;
+      
+      case LEFT:
+      leftPressed=false;
+      break;
+      
+      case RIGHT:
+      rightPressed=false;
+      break;
+     }
+ }
 }
